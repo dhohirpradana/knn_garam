@@ -3,14 +3,32 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'pages/home_page.dart';
 import 'utils/getx/image_picker.dart';
+import 'utils/getx/knn.dart';
+import 'utils/getx/knn_kualitas.dart';
+import 'widgets/my_behavior.dart';
 
 Future<void> main() async {
+  //start get storage (Store Management)
   await GetStorage.init();
+
+  //inisialisasi get yang ada di app
   final controller = Get.put(ImagePickerController());
+  final knnController = Get.put(KNNController());
+  final knnKualitasController = Get.put(KNNKualitasController());
+
+  //deklarasi get storage/ inisialisasi
   final box = GetStorage();
+
+  //membaca data get storage
   final imagePath = box.read('imagePath');
-  if (imagePath != '') {
+  final knnData = box.read('knn');
+  final kualitasData = box.read('kualitas');
+
+  //jika data tidak kosong maka ...
+  if (imagePath != null && imagePath != '') {
     controller.updateImagePath(imagePath);
+    knnController.updateKNN(knnData);
+    await knnKualitasController.updateKualitas(kualitasData);
   }
   runApp(const MyApp());
 }
@@ -27,6 +45,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: child!,
+        );
+      },
       home: HomePage(),
     );
   }

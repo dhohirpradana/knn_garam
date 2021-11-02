@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class KNNKualitasController extends GetxController {
   //berapa tetangga terdekat yang menjadi acuan
   int n = 5;
+
+  final box = GetStorage();
   String? kualitas;
   void getKualitas(List edList) {
     var sum = 0;
@@ -17,6 +20,12 @@ class KNNKualitasController extends GetxController {
     } else {
       kualitas = 'Non-premium';
     }
+    update();
+    box.write('kualitas', kualitas);
+  }
+
+  Future<void> updateKualitas(String kualitasData) async {
+    kualitas = kualitasData;
     update();
   }
 }

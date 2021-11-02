@@ -1,12 +1,14 @@
 import 'dart:math';
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:knn_garam/models/data_training.dart';
 import 'package:knn_garam/utils/getx/knn_kualitas.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class KNNController extends GetxController {
   final knnKualitasController = Get.put(KNNKualitasController());
+  final box = GetStorage();
   List knn = [];
   void hitungKNN(PaletteGenerator paletteGenerator) {
     List edList = [];
@@ -42,5 +44,11 @@ class KNNController extends GetxController {
     knn = edList;
     update();
     knnKualitasController.getKualitas(edList);
+    box.write('knn', knn);
+  }
+
+  void updateKNN(List knnData) {
+    knn = knnData;
+    update();
   }
 }
