@@ -36,6 +36,9 @@ dependencies:
   get: ^4.3.8
   image_picker: ^0.8.4+1
   palette_generator: ^0.3.2
+  google_nav_bar: ^5.0.5
+  line_icons: ^2.0.1
+  get_storage: ^2.0.3
 
 dev_dependencies:
   flutter_test:

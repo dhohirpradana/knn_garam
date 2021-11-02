@@ -8,7 +8,7 @@ import 'package:palette_generator/palette_generator.dart';
 class KNNController extends GetxController {
   final knnKualitasController = Get.put(KNNKualitasController());
   List knn = [];
-  Future<void> hitungKNN(PaletteGenerator paletteGenerator) async {
+  void hitungKNN(PaletteGenerator paletteGenerator) {
     List edList = [];
 
     //convert warna data testing ke HSL
