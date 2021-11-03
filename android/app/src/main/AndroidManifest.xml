@@ -2,6 +2,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.example.knn_garam"
 >
+<uses-permission android:name="android.permission.CAMERA" />
    <application
     android:requestLegacyExternalStorage="true"
     android:label="knn_garam"
