@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,22 @@ class ImagePickerController extends GetxController {
       box.write('imagePath', pickedFile.path);
     }
     update();
+    showDialog(
+      context: Get.overlayContext!,
+      barrierDismissible: false,
+      builder: (_) => WillPopScope(
+        onWillPop: () async => false,
+        child: const Center(
+          child: SizedBox(
+            width: 60,
+            height: 60,
+            child: CircularProgressIndicator(
+              strokeWidth: 7,
+            ),
+          ),
+        ),
+      ),
+    );
     colorController.updatePaletteGenerator(imageFile!);
   }
 

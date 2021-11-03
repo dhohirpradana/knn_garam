@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,19 +18,21 @@ class KNNController extends GetxController {
     var hsl = HSLColor.fromColor(paletteGenerator.dominantColor!.color);
 
     for (var i = 0; i < dataTraining.length; i++) {
+      //selisih diukuadratkan
       //hue distance/ jarak hue
       final hd =
           (dataTraining[i]['h'] - hsl.hue) * (dataTraining[i]['h'] - hsl.hue);
 
-      //saturation
-      final sd = ((dataTraining[i]['s'] - hsl.saturation) *
-          (dataTraining[i]['s'] - hsl.saturation));
+      //jarak saturation
+      final sd = (dataTraining[i]['s'] - hsl.saturation) *
+          (dataTraining[i]['s'] - hsl.saturation);
 
-      //lightness
-      final ld = ((dataTraining[i]['l'] - hsl.lightness) *
-          (dataTraining[i]['l'] - hsl.lightness));
+      //jarak lightness
+      final ld = (dataTraining[i]['l'] - hsl.lightness) *
+          (dataTraining[i]['l'] - hsl.lightness);
 
       //eulidience distance
+      //RUMUS : akar/ sqrt dari jumlah hd + sd + ld
       final ed = sqrt(hd + sd + ld);
       edList.add(
         {
@@ -43,6 +46,7 @@ class KNNController extends GetxController {
     }
     knn = edList;
     update();
+    Navigator.of(Get.overlayContext!).pop();
     knnKualitasController.getKualitas(edList);
     box.write('knn', knn);
   }

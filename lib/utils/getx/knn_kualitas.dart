@@ -13,6 +13,7 @@ class KNNKualitasController extends GetxController {
     for (var i = 0; i < panjang; i++) {
       sum = edList[i]['kualitas'] + sum;
     }
+
     //jika garam kualitas 1 'premium' lebih dominance
     //maka kualitas garam testing adalah Premium
     if (sum > n / 2) {
@@ -21,11 +22,19 @@ class KNNKualitasController extends GetxController {
       kualitas = 'Non-premium';
     }
     update();
+
+    //simpan status kualitas ke get storage
     box.write('kualitas', kualitas);
   }
 
   Future<void> updateKualitas(String kualitasData) async {
     kualitas = kualitasData;
     update();
+  }
+
+  void updateN(int nData) {
+    n = nData;
+    update();
+    box.write('n', n);
   }
 }

@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   static final List<Widget> _widgetOptions = <Widget>[
     BerandaPage(),
     const TrainingPage(),
-    const SettingPage()
+    SettingPage()
   ];
 
   @override
