@@ -25,7 +25,7 @@ class SettingPage extends StatelessWidget {
               builder: (_) => TextFormField(
                 controller: controller,
                 keyboardType: TextInputType.number,
-                autofocus: true,
+                autofocus: false,
                 validator: (input) {
                   if (input!.isEmpty) {
                     return 'tidak boleh kosong';
@@ -38,8 +38,8 @@ class SettingPage extends StatelessWidget {
                   }
                 },
                 decoration: InputDecoration(
-                  labelText: 'N (Tetangga)',
-                  hintText: 'Tentukan jumlah tetangga',
+                  labelText: 'N (Banyak tetangga)',
+                  hintText: 'Tentukan banyak tetangga',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -61,7 +61,6 @@ class SettingPage extends StatelessWidget {
                             ? dataTraining.length
                             : int.parse(controller.text));
                     kualitasController.getKualitas(knnController.knn);
-
                     FocusScope.of(context).requestFocus(FocusNode());
                     Get.snackbar("Berhasil", "SET NILAI N",
                         colorText: Colors.white,

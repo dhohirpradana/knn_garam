@@ -9,7 +9,9 @@ class NavigationController extends GetxController {
         ? 'BERANDA'
         : (index == 1)
             ? 'DATA TRAINIG'
-            : 'PENGATURAN';
+            : (index == 2)
+                ? 'PENGATURAN'
+                : 'TENTANG';
     update();
   }
 }

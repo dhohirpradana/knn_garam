@@ -4,10 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:knn_garam/utils/chooch.dart';
+import 'knn.dart';
+import 'knn_kualitas.dart';
 import 'palette_gen.dart';
 
 class ImagePickerController extends GetxController {
   final colorController = Get.put(PaletteGeneratorController());
+  final controller = Get.put(ImagePickerController());
+  final knnController = Get.put(KNNController());
+  final kualitasController = Get.put(KNNKualitasController());
   final imagePicker = ImagePicker();
   File? imageFile;
   final box = GetStorage();
@@ -23,7 +29,6 @@ class ImagePickerController extends GetxController {
       imageFile = File(pickedFile.path);
       box.write('imagePath', pickedFile.path);
     }
-    update();
     showDialog(
       context: Get.overlayContext!,
       barrierDismissible: false,
@@ -40,7 +45,31 @@ class ImagePickerController extends GetxController {
         ),
       ),
     );
-    colorController.updatePaletteGenerator(imageFile!);
+    final choochData = await chooch(imageFile!);
+    if (choochData['predictions'].length == 0) {
+      knnController.updateKNN([]);
+      Navigator.of(Get.overlayContext!).pop();
+      kualitasController.updateKualitas('');
+      Get.snackbar(
+        "Info",
+        "BUKAN FOTO GARAM",
+        icon: const Icon(Icons.info, color: Colors.white),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        borderRadius: 20,
+        margin: const EdgeInsets.all(15),
+        colorText: Colors.white,
+        duration: const Duration(seconds: 4),
+        isDismissible: true,
+        dismissDirection: SnackDismissDirection.HORIZONTAL,
+        forwardAnimationCurve: Curves.easeOutBack,
+      );
+      imageFile = null;
+      update();
+    } else {
+      update();
+      colorController.updatePaletteGenerator(imageFile!);
+    }
   }
 
   void updateImagePath(String imagePath) {

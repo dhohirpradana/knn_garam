@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knn_garam/utils/getx/palette_gen.dart';
+import 'package:knn_garam/widgets/substr.dart';
 
 class DataTestingColorWidget extends StatelessWidget {
   DataTestingColorWidget({Key? key}) : super(key: key);
@@ -20,12 +21,12 @@ class DataTestingColorWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('DATA FOTO'),
-                    Text('R : ' + colorController.rgbhsl[0].toString()),
-                    Text('G : ' + colorController.rgbhsl[1].toString()),
-                    Text('B : ' + colorController.rgbhsl[2].toString()),
-                    Text('H : ' + colorController.rgbhsl[3].toString()),
-                    Text('S : ' + colorController.rgbhsl[4].toString()),
-                    Text('L : ' + colorController.rgbhsl[5].toString()),
+                    substr('R : ', colorController.rgbhsl[0]),
+                    substr('G : ', colorController.rgbhsl[1]),
+                    substr('B : ', colorController.rgbhsl[2]),
+                    substr('H : ', colorController.rgbhsl[3]),
+                    substr('S : ', colorController.rgbhsl[4]),
+                    substr('L : ', colorController.rgbhsl[5])
                   ],
                 ),
               ),
