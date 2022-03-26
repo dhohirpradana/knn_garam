@@ -17,6 +17,7 @@ class FoundationPage extends StatelessWidget {
 
   static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
+    // const InfoPage(),
     const TrainingPage(),
     SettingPage(),
     const InfoPage()
@@ -33,8 +34,9 @@ class FoundationPage extends StatelessWidget {
           backgroundColor: AppColor.primaryColor,
         ),
         body: GetBuilder<NavigationController>(
-            builder: (_) =>
-                _widgetOptions.elementAt(navigationController.selectedIndex)),
+          builder: (_) =>
+              _widgetOptions.elementAt(navigationController.selectedIndex),
+        ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             color: Colors.white,

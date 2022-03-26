@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knn_garam/utils/getx/palette_gen.dart';
+import 'package:knn_garam/utils/getx/palette_generator.dart';
 import 'package:knn_garam/widgets/substr.dart';
 
 class DataTestingColorWidget extends StatelessWidget {

@@ -1,41 +1,36 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:knn_garam/models/data_training.dart';
 import 'package:knn_garam/utils/getx/knn_kualitas.dart';
-import 'package:palette_generator/palette_generator.dart';
 
 class KNNController extends GetxController {
   final knnKualitasController = Get.put(KNNKualitasController());
   final box = GetStorage();
   List knn = [];
-  void hitungKNN(PaletteGenerator paletteGenerator) {
+  void hitungKNN(List rgbhsl) {
     List edList = [];
-
-    //convert warna data testing ke HSL
-    var hsl = HSLColor.fromColor(paletteGenerator.dominantColor!.color);
 
     for (var i = 0; i < dataTraining.length; i++) {
       //selisih diukuadratkan
       //hue distance/ jarak hue
-      final hd =
-          (dataTraining[i]['h'] - hsl.hue) * (dataTraining[i]['h'] - hsl.hue);
+      final hd = pow(dataTraining[i]['h'] - rgbhsl[3], 2);
 
       //jarak saturation
-      final sd = (dataTraining[i]['s'] - hsl.saturation) *
-          (dataTraining[i]['s'] - hsl.saturation);
+      final sd = pow(dataTraining[i]['s'] - rgbhsl[4], 2);
 
       //jarak lightness
-      final ld = (dataTraining[i]['l'] - hsl.lightness) *
-          (dataTraining[i]['l'] - hsl.lightness);
+      final ld = pow(dataTraining[i]['l'] - rgbhsl[5], 2);
 
       //eulidience distance
       //RUMUS : akar/ sqrt dari jumlah hd + sd + ld
-      final ed = sqrt(hd + sd + ld);
+      final double ed = sqrt(hd + sd + ld);
       edList.add(
         {
+          'h': dataTraining[i]['h'],
+          's': dataTraining[i]['s'],
+          'l': dataTraining[i]['l'],
           'jarak': ed,
           'kualitas': dataTraining[i]['q'],
         },
@@ -48,7 +43,7 @@ class KNNController extends GetxController {
     update();
     Navigator.of(Get.overlayContext!).pop();
     knnKualitasController.getKualitas(edList);
-    box.write('knn', knn);
+    box.write('knn', edList);
   }
 
   void updateKNN(List knnData) {

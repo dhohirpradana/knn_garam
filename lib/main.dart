@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:knn_garam/utils/getx/palette_gen.dart';
+import 'package:knn_garam/utils/getx/palette_generator.dart';
 import 'pages/foundation_page.dart';
 import 'utils/getx/image_picker.dart';
 import 'utils/getx/knn.dart';
@@ -12,7 +12,7 @@ Future<void> main() async {
   //start get storage (Store Management)
   await GetStorage.init();
 
-  //inisialisasi get yang ada di app
+  // inisialisasi get yang ada di app
   final controller = Get.put(ImagePickerController());
   final knnController = Get.put(KNNController());
   final knnKualitasController = Get.put(KNNKualitasController());
@@ -28,7 +28,7 @@ Future<void> main() async {
   final rgbhsl = box.read('rgbhsl');
   final n = box.read('n') ?? 3;
 
-  //jika data tidak kosong maka ...
+  // jika data tidak kosong maka ...
   if (imagePath != null &&
       imagePath != '' &&
       knnData != null &&

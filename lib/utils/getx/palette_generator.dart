@@ -27,7 +27,7 @@ class PaletteGeneratorController extends GetxController {
     ];
     update();
     box.write('rgbhsl', rgbhsl);
-    knnController.hitungKNN(paletteGenerator!);
+    knnController.hitungKNN(rgbhsl);
   }
 
   void getStorageRGBHSL(List rgbhslData) {

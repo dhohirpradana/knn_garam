@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knn_garam/utils/getx/image_picker.dart';
@@ -105,18 +107,47 @@ class HomePage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: kualitasController.n,
                       itemBuilder: (context, index) {
+                        double roundDouble(double value, int places) {
+                          num mod = pow(10.0, places);
+                          return ((value * mod).round().toDouble() / mod);
+                        }
+
+                        final h = roundDouble(
+                            knnController.knn[index]['h'].toDouble(), 2);
+                        final s = roundDouble(
+                            knnController.knn[index]['s'].toDouble(), 2);
+                        final l = roundDouble(
+                            knnController.knn[index]['l'].toDouble(), 2);
+                        final jarak =
+                            roundDouble(knnController.knn[index]['jarak'], 2);
                         return ListTile(
-                          tileColor: (knnController.knn[index]['kualitas'] == 1)
-                              ? Colors.green[50]
-                              : Colors.red[50],
-                          leading: Text((index + 1).toString()),
-                          title: Text(
-                              (knnController.knn[index]['kualitas'] == 1)
-                                  ? 'Premium'
-                                  : 'Non-premium'),
-                          subtitle: Text('Jarak : ' +
-                              knnController.knn[index]['jarak'].toString()),
-                        );
+                            tileColor:
+                                (knnController.knn[index]['kualitas'] == 1)
+                                    ? Colors.green[50]
+                                    : Colors.red[50],
+                            // leading: Text((index + 1).toString()),
+                            title: Text(
+                                (knnController.knn[index]['kualitas'] == 1)
+                                    ? 'Premium'
+                                    : 'Non-premium'),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                    flex: 1,
+                                    child: Text('Hue : ' + h.toString())),
+                                Flexible(
+                                    flex: 1,
+                                    child:
+                                        Text('Saturation : ' + s.toString())),
+                                Flexible(
+                                    flex: 1,
+                                    child: Text('Lightness : ' + l.toString())),
+                                Flexible(
+                                    flex: 1,
+                                    child: Text('Jarak : ' + jarak.toString())),
+                              ],
+                            ));
                       },
                     ),
             ),
