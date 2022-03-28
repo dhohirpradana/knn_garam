@@ -30,6 +30,8 @@
 .pub-cache/
 .pub/
 /build/
+/lib/assets/premium
+/lib/assets/non_premium
 
 # Web related
 lib/generated_plugin_registrant.dart

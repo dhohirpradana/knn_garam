@@ -15,8 +15,23 @@ class PaletteGeneratorController extends GetxController {
     paletteGenerator = await PaletteGenerator.fromImageProvider(
       Image.file(file).image,
     );
-    final color = paletteGenerator!.dominantColor!.color;
+    final darkPopulation = (paletteGenerator!.darkMutedColor != null)
+        ? paletteGenerator!.darkMutedColor!.population
+        : 0;
+    print(darkPopulation);
+    final color = (darkPopulation > 300)
+        ? paletteGenerator!.darkMutedColor!.color
+        : (paletteGenerator!.darkVibrantColor != null)
+            ? paletteGenerator!.darkVibrantColor!.color
+            : paletteGenerator!.dominantColor!.color;
     final hsl = HSLColor.fromColor(color);
+    print("{'h': " +
+        hsl.hue.toString() +
+        ", 's': " +
+        hsl.saturation.toString() +
+        ", 'l': " +
+        hsl.lightness.toString() +
+        ", 'q': 1,},");
     rgbhsl = [
       color.red,
       color.green,

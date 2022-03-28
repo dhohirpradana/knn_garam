@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:knn_garam/utils/getx/image_picker.dart';
 import 'package:knn_garam/utils/getx/knn.dart';
 import 'package:knn_garam/utils/getx/knn_kualitas.dart';
+import 'package:knn_garam/utils/getx/palette_generator.dart';
 import 'package:knn_garam/utils/show_picker.dart';
 import 'package:knn_garam/widgets/button_style.dart';
 import 'package:knn_garam/widgets/data_testing_color_widget.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatelessWidget {
 
   // getx
   final controller = Get.put(ImagePickerController());
+  final colorController = Get.put(PaletteGeneratorController());
   final knnController = Get.put(KNNController());
   final kualitasController = Get.put(KNNKualitasController());
 
@@ -72,20 +74,13 @@ class HomePage extends StatelessWidget {
                   child: const Text('Pilih Foto')),
               spacer(height: 10),
               GetBuilder<KNNKualitasController>(
-                builder: (_) => SizedBox(
-                  // height: 100,
-                  // width: 100,
-                  // color: (colorController.paletteGenerator == null)
-                  //     ? Colors.white
-                  //     : colorController.paletteGenerator!.dominantColor!.color,
-                  child: Center(
-                    child: Text(
-                      (kualitasController.kualitas == null)
-                          ? 'Tidak ada foto'
-                          : kualitasController.kualitas!.toUpperCase(),
-                      style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.w600),
-                    ),
+                builder: (_) => Center(
+                  child: Text(
+                    (kualitasController.kualitas == null)
+                        ? '-'
+                        : kualitasController.kualitas!.toUpperCase(),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

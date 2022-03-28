@@ -20,32 +20,39 @@ class SettingPage extends StatelessWidget {
       child: Form(
         key: _formKey,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             GetBuilder<KNNKualitasController>(
-              builder: (_) => TextFormField(
-                controller: controller,
-                keyboardType: TextInputType.number,
-                autofocus: false,
-                validator: (input) {
-                  if (input!.isEmpty) {
-                    return 'tidak boleh kosong';
-                  } else if (input == '0') {
-                    return 'tidak boleh 0';
-                  } else if (int.parse(input) < 0) {
-                    return 'tidak boleh negatif';
-                  } else {
-                    return null;
-                  }
-                },
-                decoration: InputDecoration(
-                  labelText: 'N (Banyak tetangga)',
-                  hintText: 'Tentukan banyak tetangga',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  prefixIcon: const Icon(
-                    LineIcons.hashtag,
-                  ),
+                builder: (_) => Text(
+                      kualitasController.n.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    )),
+            const SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              autofocus: false,
+              validator: (input) {
+                if (input!.isEmpty) {
+                  return 'tidak boleh kosong';
+                } else if (input == '0') {
+                  return 'tidak boleh 0';
+                } else if (int.parse(input) < 0) {
+                  return 'tidak boleh negatif';
+                } else {
+                  return null;
+                }
+              },
+              decoration: InputDecoration(
+                labelText: 'N (Banyak tetangga)',
+                hintText: 'Tentukan banyak tetangga',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                prefixIcon: const Icon(
+                  LineIcons.hashtag,
                 ),
               ),
             ),

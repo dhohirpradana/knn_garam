@@ -3,7 +3,7 @@ import 'package:get_storage/get_storage.dart';
 
 class KNNKualitasController extends GetxController {
   //berapa tetangga terdekat yang menjadi acuan
-  int n = 5;
+  int n = 30;
 
   final box = GetStorage();
   String? kualitas;

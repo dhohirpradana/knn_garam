@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:knn_garam/utils/chooch.dart';
 import 'knn.dart';
@@ -18,16 +19,6 @@ class ImagePickerController extends GetxController {
   final box = GetStorage();
 
   Future<void> pickImage(ImageSource source) async {
-    XFile? pickedFile = await imagePicker.pickImage(
-      source: source,
-      imageQuality: 50,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-      imageFile = File(pickedFile.path);
-      box.write('imagePath', pickedFile.path);
-    }
     showDialog(
       context: Get.overlayContext!,
       barrierDismissible: false,
@@ -44,33 +35,67 @@ class ImagePickerController extends GetxController {
         ),
       ),
     );
-    if (imageFile != null) {
-      // final choochData = await chooch(imageFile!);
-      // if (choochData['predictions'].length == 0) {
-      //   knnController.updateKNN([]);
-      //   Navigator.of(Get.overlayContext!).pop();
-      //   kualitasController.updateKualitas('');
-      //   Get.snackbar(
-      //     "Info",
-      //     "BUKAN FOTO GARAM",
-      //     icon: const Icon(Icons.info, color: Colors.white),
-      //     snackPosition: SnackPosition.BOTTOM,
-      //     backgroundColor: Colors.red,
-      //     borderRadius: 20,
-      //     margin: const EdgeInsets.all(15),
-      //     colorText: Colors.white,
-      //     duration: const Duration(seconds: 4),
-      //     isDismissible: true,
-      //     dismissDirection: DismissDirection.horizontal,
-      //     forwardAnimationCurve: Curves.easeOutBack,
-      //   );
-      //   imageFile = null;
-      //   update();
-      // } else {
-      update();
-      colorController.updatePaletteGenerator(imageFile!);
-      // }
+    XFile? pickedFile = await imagePicker.pickImage(
+      source: source,
+      imageQuality: 50,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      File? croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        androidUiSettings: const AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+      );
+      if (croppedFile != null) {
+        imageFile = croppedFile;
+        colorController.updatePaletteGenerator(croppedFile);
+        box.write('imagePath', croppedFile.path);
+        update();
+      } else {
+        Navigator.of(Get.overlayContext!).pop();
+      }
+    } else {
+      Navigator.of(Get.overlayContext!).pop();
     }
+    // if (imageFile != null) {
+    // final choochData = await chooch(imageFile!);
+    // if (choochData['predictions'].length == 0) {
+    //   knnController.updateKNN([]);
+    // Navigator.of(Get.overlayContext!).pop();
+    //   kualitasController.updateKualitas('');
+    //   Get.snackbar(
+    //     "Info",
+    //     "BUKAN FOTO GARAM",
+    //     icon: const Icon(Icons.info, color: Colors.white),
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     backgroundColor: Colors.red,
+    //     borderRadius: 20,
+    //     margin: const EdgeInsets.all(15),
+    //     colorText: Colors.white,
+    //     duration: const Duration(seconds: 4),
+    //     isDismissible: true,
+    //     dismissDirection: DismissDirection.horizontal,
+    //     forwardAnimationCurve: Curves.easeOutBack,
+    //   );
+    //   imageFile = null;
+    //   update();
+    // } else {
+    //   update();
+    //   colorController.updatePaletteGenerator(imageFile!);
+    // }
+    // }
   }
 
   void updateImagePath(String imagePath) {

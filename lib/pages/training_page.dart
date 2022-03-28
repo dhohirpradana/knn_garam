@@ -15,7 +15,7 @@ class TrainingPage extends StatelessWidget {
             tileColor:
                 (index.isEven) ? Colors.lightBlue[50] : Colors.transparent,
             leading: Text((index + 1).toString()),
-            title: const Text('Gambar'),
+            title: const Text('---------------------------'),
             subtitle:
                 Text((items[index]['q'] == 1) ? 'Premium' : 'Non-premium'),
           );

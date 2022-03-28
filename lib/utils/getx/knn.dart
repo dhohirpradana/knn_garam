@@ -15,7 +15,7 @@ class KNNController extends GetxController {
     for (var i = 0; i < dataTraining.length; i++) {
       //selisih diukuadratkan
       //hue distance/ jarak hue
-      final hd = pow(dataTraining[i]['h'] - rgbhsl[3], 2);
+      final hd = pow(dataTraining[i]['h'] / 360 - rgbhsl[3] / 360, 2);
 
       //jarak saturation
       final sd = pow(dataTraining[i]['s'] - rgbhsl[4], 2);
