@@ -32,7 +32,7 @@ class InfoPage extends StatelessWidget {
                   RichText(
                       text: const TextSpan(
                           style: TextStyle(color: Colors.black),
-                          text: 'NIM       : 202107057')),
+                          text: 'NIM       : 201851080')),
                   const SizedBox(
                     height: 5,
                   ),
@@ -43,10 +43,6 @@ class InfoPage extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  RichText(
-                      text: const TextSpan(
-                          style: TextStyle(color: Colors.black),
-                          text: 'Kelas     : B')),
                 ],
               ),
             ),
@@ -62,7 +58,7 @@ class InfoPage extends StatelessWidget {
                 text: const TextSpan(
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
-                    text: 'Metode KNN Berbasis Android'))
+                    text: 'Menggunakan Metode KNN'))
           ],
         ),
       ),

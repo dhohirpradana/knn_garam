@@ -8,7 +8,7 @@ class NavigationController extends GetxController {
     halamanText = (index == 0)
         ? 'BERANDA'
         : (index == 1)
-            ? 'DATA TRAINIG'
+            ? 'DATA TRAINING'
             : (index == 2)
                 ? 'PENGATURAN'
                 : 'TENTANG';
