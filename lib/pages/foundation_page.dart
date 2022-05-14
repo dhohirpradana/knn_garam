@@ -16,7 +16,7 @@ class FoundationPage extends StatelessWidget {
   final navigationController = Get.put(NavigationController());
 
   static final List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+    const HomePage(),
     // const InfoPage(),
     const TrainingPage(),
     SettingPage(),

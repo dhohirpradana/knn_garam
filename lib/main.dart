@@ -26,7 +26,7 @@ Future<void> main() async {
   final knnData = box.read('knn');
   final kualitasData = box.read('kualitas');
   final rgbhsl = box.read('rgbhsl');
-  final n = box.read('n') ?? 3;
+  final n = box.read('n') ?? 30;
 
   // jika data tidak kosong maka ...
   if (imagePath != null &&

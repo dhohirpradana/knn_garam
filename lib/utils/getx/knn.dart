@@ -30,9 +30,9 @@ class KNNController extends GetxController {
       final double ed = sqrt(hd + sd + ld);
       edList.add(
         {
-          'h': dataTraining[i]['h'],
-          's': dataTraining[i]['s'],
-          'l': dataTraining[i]['l'],
+          'h': hslTraining.hue,
+          's': hslTraining.saturation,
+          'l': hslTraining.lightness,
           'jarak': ed,
           'kualitas': dataTraining[i]['q'],
         },
