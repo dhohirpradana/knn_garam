@@ -13,9 +13,9 @@ class TrainingPage extends StatelessWidget {
       child: ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
-          final image = (index < 28)
+          final image = (index < 31)
               ? 'lib/assets/premium/' + (index + 1).toString() + '.jpg'
-              : 'lib/assets/non_premium/' + (index - 27).toString() + '.jpg';
+              : 'lib/assets/non_premium/' + (index - 30).toString() + '.jpg';
           return ListTile(
             tileColor:
                 (index.isEven) ? Colors.lightBlue[50] : Colors.transparent,
@@ -39,8 +39,10 @@ class TrainingPage extends StatelessWidget {
                 SizedBox(
                   width: Get.width / 10,
                 ),
-                Text((items[index]['q'] == 1) ? 'Premium' : 'Non-premium',
-                    style: const TextStyle(fontSize: 20))
+                Text(
+                  (items[index]['q'] == 1) ? 'Premium' : 'Non-premium',
+                  style: const TextStyle(fontSize: 20),
+                )
               ],
             ),
           );

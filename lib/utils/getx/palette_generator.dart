@@ -24,6 +24,8 @@ class PaletteGeneratorController extends GetxController {
             ? paletteGenerator!.darkVibrantColor!.color
             : paletteGenerator!.dominantColor!.color;
     final hsl = HSLColor.fromColor(color);
+    // print(
+    //     "{'r': ${color.red}, 'g': ${color.green}, 'b': ${color.blue}, 'q': 0},");
     rgbhsl = [
       color.red,
       color.green,

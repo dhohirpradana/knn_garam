@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
                           child: Text('Masukan Foto'),
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 10),
-                        height: height / 5,
+                        height: height / 3,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey[300],
@@ -49,18 +49,17 @@ class HomePage extends StatelessWidget {
                       )
                     : Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: width / 2,
-                              child: Image.file(
-                                controller.imageFile!,
-                                height: height / 5,
-                                cacheHeight: height ~/ 5,
-                              ),
+                        child: Center(
+                          child: SizedBox(
+                            width: width,
+                            child: Image.file(
+                              controller.imageFile!,
+                              height: height / 3,
+                              cacheHeight: height ~/ 3,
+                              // width: width / 4, cacheWidth: width ~/ 4,
                             ),
-                            DataTestingColorWidget()
-                          ],
+                          ),
+                          // DataTestingColorWidget()
                         ),
                       ),
               ),
@@ -75,79 +74,85 @@ class HomePage extends StatelessWidget {
               spacer(height: 10),
               GetBuilder<KNNKualitasController>(
                 builder: (_) => Center(
-                  child: Text(
-                    (kualitasController.kualitas == null)
-                        ? '-'
-                        : kualitasController.kualitas!.toUpperCase(),
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.w600),
+                  child: Column(
+                    children: [
+                      Text(
+                        (kualitasController.kualitas == null)
+                            ? '-'
+                            : kualitasController.kualitas!.toUpperCase(),
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w600),
+                      ),
+                      spacer(height: 10),
+                      const Divider(),
+                    ],
                   ),
                 ),
               ),
-              spacer(height: 10),
+              spacer(height: 2),
+              DataTestingColorWidget()
             ],
           ),
         ),
+        // //listview
+        // Expanded(
+        //   flex: 1,
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+        //     child: GetBuilder<KNNController>(
+        //       builder: (_) => (knnController.knn.isEmpty)
+        //           ? const SizedBox()
+        //           : ListView.builder(
+        //               scrollDirection: Axis.vertical,
+        //               shrinkWrap: true,
+        //               itemCount: kualitasController.n,
+        //               itemBuilder: (context, index) {
+        //                 double roundDouble(double value, int places) {
+        //                   num mod = pow(10.0, places);
+        //                   return ((value * mod).round().toDouble() / mod);
+        //                 }
 
-        //listview
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-            child: GetBuilder<KNNController>(
-              builder: (_) => (knnController.knn.isEmpty)
-                  ? const SizedBox()
-                  : ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: kualitasController.n,
-                      itemBuilder: (context, index) {
-                        double roundDouble(double value, int places) {
-                          num mod = pow(10.0, places);
-                          return ((value * mod).round().toDouble() / mod);
-                        }
-
-                        final h = roundDouble(
-                            knnController.knn[index]['h'].toDouble(), 2);
-                        final s = roundDouble(
-                            knnController.knn[index]['s'].toDouble(), 2);
-                        final l = roundDouble(
-                            knnController.knn[index]['l'].toDouble(), 2);
-                        final jarak =
-                            roundDouble(knnController.knn[index]['jarak'], 2);
-                        return ListTile(
-                            tileColor:
-                                (knnController.knn[index]['kualitas'] == 1)
-                                    ? Colors.green[50]
-                                    : Colors.red[50],
-                            // leading: Text((index + 1).toString()),
-                            title: Text(
-                                (knnController.knn[index]['kualitas'] == 1)
-                                    ? 'Premium'
-                                    : 'Non-premium'),
-                            subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                    flex: 1,
-                                    child: Text('Hue : ' + h.toString())),
-                                Flexible(
-                                    flex: 1,
-                                    child:
-                                        Text('Saturation : ' + s.toString())),
-                                Flexible(
-                                    flex: 1,
-                                    child: Text('Lightness : ' + l.toString())),
-                                Flexible(
-                                    flex: 1,
-                                    child: Text('Jarak : ' + jarak.toString())),
-                              ],
-                            ));
-                      },
-                    ),
-            ),
-          ),
-        )
+        //                 final h = roundDouble(
+        //                     knnController.knn[index]['h'].toDouble(), 2);
+        //                 final s = roundDouble(
+        //                     knnController.knn[index]['s'].toDouble(), 2);
+        //                 final l = roundDouble(
+        //                     knnController.knn[index]['l'].toDouble(), 2);
+        //                 final jarak =
+        //                     roundDouble(knnController.knn[index]['jarak'], 2);
+        //                 return ListTile(
+        //                     tileColor:
+        //                         (knnController.knn[index]['kualitas'] == 1)
+        //                             ? Colors.green[50]
+        //                             : Colors.red[50],
+        //                     // leading: Text((index + 1).toString()),
+        //                     title: Text(
+        //                         (knnController.knn[index]['kualitas'] == 1)
+        //                             ? 'Premium'
+        //                             : 'Non-premium'),
+        //                     subtitle: Row(
+        //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //                       children: [
+        //                         Flexible(
+        //                             flex: 1,
+        //                             child: Text('Hue : ' + h.toString())),
+        //                         Flexible(
+        //                             flex: 1,
+        //                             child:
+        //                                 Text('Saturation : ' + s.toString())),
+        //                         Flexible(
+        //                             flex: 1,
+        //                             child: Text('Lightness : ' + l.toString())),
+        //                         Flexible(
+        //                             flex: 1,
+        //                             child: Text('Jarak : ' + jarak.toString())),
+        //                       ],
+        //                     ));
+        //               },
+        //             ),
+        //     ),
+        //   ),
+        // )
       ],
     );
   }

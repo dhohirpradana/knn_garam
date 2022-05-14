@@ -24,8 +24,9 @@ class SettingPage extends StatelessWidget {
           children: [
             GetBuilder<KNNKualitasController>(
                 builder: (_) => Text(
-                      kualitasController.n.toString(),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      "N: " + kualitasController.n.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 19),
                     )),
             const SizedBox(
               height: 10,

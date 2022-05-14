@@ -13,15 +13,17 @@ class KNNController extends GetxController {
     List edList = [];
 
     for (var i = 0; i < dataTraining.length; i++) {
+      var hslTraining = HSLColor.fromColor(Color.fromRGBO(
+          dataTraining[i]['r'], dataTraining[i]['g'], dataTraining[i]['b'], 1));
       //selisih diukuadratkan
       //hue distance/ jarak hue
-      final hd = pow(dataTraining[i]['h'] / 360 - rgbhsl[3] / 360, 2);
+      final hd = pow(hslTraining.hue / 360 - rgbhsl[3] / 360, 2);
 
       //jarak saturation
-      final sd = pow(dataTraining[i]['s'] - rgbhsl[4], 2);
+      final sd = pow(hslTraining.saturation - rgbhsl[4], 2);
 
       //jarak lightness
-      final ld = pow(dataTraining[i]['l'] - rgbhsl[5], 2);
+      final ld = pow(hslTraining.lightness - rgbhsl[5], 2);
 
       //eulidience distance
       //RUMUS : akar/ sqrt dari jumlah hd + sd + ld
